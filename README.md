@@ -1,0 +1,2 @@
+# LocalTrade
+Solo project app

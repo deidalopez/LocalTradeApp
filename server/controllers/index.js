@@ -5,7 +5,7 @@ const User = require('../models/index');
 
 
 
-const create = async (req, res) => {
+const register = async (req, res) => {
   const {email, password} = req.body; 
   const alreadyUser = await User.findOne({email:email});
   if (alreadyUser) return res.status(409).send({error:'409', message:'Email is already in use'})
@@ -22,4 +22,18 @@ const create = async (req, res) => {
     }
 }
 
-module.exports = {create}
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    const validatePassword = await bcrypt.compare(password, user.password);
+    if (!validatePassword) throw new Error();
+    const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY);
+    res.status(200).send({ accessToken });
+  } catch (error) {
+    res.status(400).json({ error: '400', message: 'Email or password is incorrect' });
+  }
+}
+
+module.exports = { register, login}

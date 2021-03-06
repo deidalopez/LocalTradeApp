@@ -1,33 +1,54 @@
-const mongoose = require('../database');
+const { DataTypes } = require('sequelize');
 
-const postSchema = new mongoose.schema ({
-  description: {
-    type: String, 
-    required: true
-  }, 
-  image: {
-    data: Buffer, 
-    type: String
-  },
-  
-})
+const db = require('../database');
 
-const userSchema = new mongoose.Schema ({
+const Users = db.define('Users', {
   name: {
-    type: String, 
-    required: true
-  }, 
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  // id: {
+  //   type: DataTypes.INTEGER, 
+  //   allowNull:true,
+  //   primaryKey:true
+  // },
   email: {
-    type: String, 
-    required: true,
-  }, 
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   password: {
-    type: String, 
-    required: true
-  }, 
-  posts: {
-    type
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+const Posts = db.define('Posts', {
+  description: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  image_url: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 })
 
-module.exports = mongoose.model('User', userSchema);
+const associationOpts = {
+  foreignKey: 'user_id',
+  as: 'posts'
+};
+
+Posts.belongsTo(Users, associationOpts);
+Users.hasMany(Posts, associationOpts);
+
+module.exports = {
+  Users,
+  Posts,
+}
+
+//ADD a location feature to the user or to the posts. probably to the posts 
+//https://lorenstewart.me/2016/10/03/sequelize-crud-101/

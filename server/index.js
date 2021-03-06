@@ -1,23 +1,27 @@
-const express = require('express'); 
+const express = require('express');
+const cors = require('cors');
+const app = express();
 require('dotenv').config();
-const cors = require ('cors');
-const app = express(); 
+const db = require('./database');
 const routes = require('./routes')
-const PORT = process.env.PORT || 3001; 
+
+const PORT = process.env.PORT || 3001;
 
 const corsConfig = {
-  origin:'http://localhost:19003', 
-  credentials:true,
+  origin: 'http://localhost:19006',
+  credentials: true,
 }
 
+db.authenticate()
+  .then(() => console.log('we are connected on postgres://postgres:password@localhost:5432/localTradeUsers'))
+  .catch(err => console.log(err))
+
+
 app.use(cors(corsConfig));
-app.use(express.json()); 
+app.use(express.json());
 
 app.use(routes);
 
-app.get('*', (req, res) => {
-  res.status(404).send('Sorry, not found 😞');
-});
 
 app.listen(PORT, () => {
   console.log(`listening on http://localhost:${PORT}`);

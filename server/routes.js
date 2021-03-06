@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const controller = require('./controllers/');
 const authorizeUser = require('./auth/auth');
-// const {Users, Posts} = require('./models/models');
-// const db = require('./db')
+
 
 router.get('/get', controller.grabAll);
 

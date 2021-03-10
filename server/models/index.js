@@ -3,15 +3,14 @@ const { DataTypes } = require('sequelize');
 const db = require('../database');
 
 const Users = db.define('Users', {
-  name: {
+  firstName: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  // id: {
-  //   type: DataTypes.INTEGER, 
-  //   allowNull:true,
-  //   primaryKey:true
-  // },
+  lastName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -19,7 +18,15 @@ const Users = db.define('Users', {
   password: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
+  longitude: {
+    type: DataTypes.DECIMAL(12, 6),
+    allowNull: false
+  },
+  latitude: {
+    type: DataTypes.DECIMAL(12, 6),
+    allowNull: false
+  },
 });
 
 const Posts = db.define('Posts', {
@@ -32,9 +39,17 @@ const Posts = db.define('Posts', {
     allowNull: false
   },
   user_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.NUMBER,
     allowNull: false
-  }
+  },
+  longitude: {
+    type: DataTypes.DECIMAL(12, 6),
+    allowNull: false
+  },
+  latitude: {
+    type: DataTypes.DECIMAL(12, 6),
+    allowNull: false
+  },
 })
 
 const associationOpts = {
@@ -49,6 +64,3 @@ module.exports = {
   Users,
   Posts,
 }
-
-//ADD a location feature to the user or to the posts. probably to the posts 
-//https://lorenstewart.me/2016/10/03/sequelize-crud-101/

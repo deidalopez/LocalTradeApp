@@ -2,7 +2,7 @@ const router = require('express').Router();
 const controller = require('./controllers/');
 const authorizeUser = require('./auth/auth');
 
-
+//users
 router.get('/get', controller.grabAll);
 
 router.post('/register', controller.createUser);
@@ -17,8 +17,7 @@ router.get('/getByEmail/:userId', controller.getUserById);
 
 
 // posts
-// router.post('/newPost', controller.newPost);
-router.post('/newPost', authorizeUser, controller.newPost);
+router.post('/newPost', controller.newPost);
 
 router.get('/allPosts', controller.getPosts);
 

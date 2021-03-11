@@ -79,8 +79,10 @@ const getUserByEmail = async (req, res) => {
 // get user by id
 const getUserById = async (req, res) => {
   const id = req.params.userId;
+  console.log(id)
   try {
     let user = await Users.findOne({ where: { id: id } })
+    console.log('got user')
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: '500', message: 'Couldnt find user with that id' });

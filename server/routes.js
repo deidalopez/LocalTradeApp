@@ -13,7 +13,7 @@ router.get('/getUser', authorizeUser, controller.getUser);
 
 router.get('/getByEmail/:userEmail', controller.getUserByEmail);
 
-router.get('/getByEmail/:userId', controller.getUserById);
+router.get('/getById/:userId', controller.getUserById);
 
 
 // posts

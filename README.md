@@ -3,9 +3,7 @@ LocalTrade is a community trade app, where users can post perishable items (such
 
 ## Getting Started
 - Fork this repository and clone it to your local machine
-
-## Installation
-To get all the required dependencies make sure to 
+- To get all the required dependencies by ```npm install ```
 ```bash
 npm install 
 ```

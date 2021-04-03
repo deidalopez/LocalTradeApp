@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 
-const db = require('../database');
+const sequelize = require('../database');
 
-const Users = db.define('Users', {
+const Users = sequelize.define('Users', {
   firstName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,15 +21,15 @@ const Users = db.define('Users', {
   },
   longitude: {
     type: DataTypes.DECIMAL(12, 6),
-    allowNull: false
+    allowNull: true
   },
   latitude: {
     type: DataTypes.DECIMAL(12, 6),
-    allowNull: false
+    allowNull: true
   },
 });
 
-const Posts = db.define('Posts', {
+const Posts = sequelize.define('Posts', {
   description: {
     type: DataTypes.STRING,
     allowNull: false,

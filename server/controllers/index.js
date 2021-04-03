@@ -18,9 +18,9 @@ const createUser = async (req, res) => {
   const { email, password } = req.body;
   let alreadyExistingUser = await Users.findOne({ where: { email: email } });
   if (alreadyExistingUser) return res.status(500).send({ error: "already exists" });
-  if (!validator.isStrongPassword(password, {
-    minLength: 8, minLowercase: 1, minUppercase: 1, minNumber: 1,
-  })) return res.status(400).json({ error: "Weak password, should contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number" })
+  // if (!validator.isStrongPassword(password, {
+  //   minLength: 8, minLowercase: 1, minUppercase: 1, minNumber: 1,
+  // })) return res.status(400).json({ error: "Weak password, should contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number" })
   try {
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = Users.build({
@@ -33,8 +33,8 @@ const createUser = async (req, res) => {
     const accessToken = jwt.sign({ id }, SECRET_KEY);
     res.status(200).send({ accessToken });
   } catch (error) {
-    console.log('error');
-    res.status(500).send('error')
+    console.log(error);
+    res.status(500).send(error)
   }
 }
 
@@ -79,7 +79,7 @@ const getUserByEmail = async (req, res) => {
 // get user by id
 const getUserById = async (req, res) => {
   const id = req.params.userId;
-  console.log(id)
+  console.log('id ', id)
   try {
     let user = await Users.findOne({ where: { id: id } })
     console.log('got user')
@@ -112,9 +112,11 @@ const getPostsByUserId = async (req, res) => {
 
 //make post
 const newPost = async (req, res) => {
-  const { description, image_url, user_id, longitude, latitude } = req.body;
+  const { description, image_url, idOfUser, longitude, latitude } = req.body;
+  console.log(description)
+  console.log(idOfUser)
   if (description.length < 5) return res.json("please enter a longer description")
-  const user = await Users.findOne({ where: { id: user_id } })
+  const user = await Users.findOne({ where: { id: idOfUser } })
 
   if (!user) res.status(400).json({ error: "user with this id not found" })
   try {

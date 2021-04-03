@@ -2,4 +2,6 @@ const { Sequelize } = require('sequelize');
 
 const { DB_CONNECTION_URI } = process.env;
 
-module.exports = new Sequelize(DB_CONNECTION_URI)
+const sequelize = new Sequelize(DB_CONNECTION_URI)
+// module.exports = new Sequelize(DB_CONNECTION_URI)
+module.exports = sequelize

@@ -61,7 +61,7 @@ export default StyleSheet.create({
   },
   buttons: {
     margin: 5,
-    backgroundColor: COLORS.turq,
+    backgroundColor: COLORS.secondary,
     borderRadius: 7,
     height: 40,
     justifyContent: 'center',

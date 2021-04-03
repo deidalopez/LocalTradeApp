@@ -5,23 +5,20 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 10,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttoncontainer: {
     flex: 1,
-    // marginTop: 10,
-    // backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   title: {
-    color: 'black',
+    color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -67,7 +64,7 @@ export default StyleSheet.create({
 
   buttons: {
     margin: 5,
-    backgroundColor: COLORS.turq,
+    backgroundColor: COLORS.darkblue,
     borderRadius: 7,
     height: 40,
     justifyContent: 'center',

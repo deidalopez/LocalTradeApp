@@ -1,14 +1,13 @@
 import React from 'react'
 import { Button, Header, Text } from 'react-native-elements';
-import { ImageBackground, Touchable } from 'react-native';
-import { Platform, Alert, View, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { Platform, Alert, View, Image, ImageBackground, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 
 import styles from './Landing.styles'
 
 export default function LandingPage({ navigation }) {
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
-      <ImageBackground source={require('../../assets/veg.png')} style={styles.image}>
+    // <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} >
+    <ImageBackground source={require('../../assets/veg.png')} style={styles.image}>
         <View style={styles.container}>
           <Text style={styles.title}>LocalTrade</Text>
           <View style={styles.buttonContainer}>
@@ -20,8 +19,8 @@ export default function LandingPage({ navigation }) {
             </TouchableOpacity>
           </View>
         </View>
-      </ImageBackground>
-    </KeyboardAvoidingView>
+    </ImageBackground>
+    // </KeyboardAvoidingView>
   )
 }
 

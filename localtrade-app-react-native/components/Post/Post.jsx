@@ -1,28 +1,30 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Image, Platform } from 'react-native';
+import { View, Image, Platform, TouchableOpacity, Text, TextInput } from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import APIservice from './services/APIService';
-import { StyleSheet } from 'react-native';
-import { UserContext } from '../Context/Context'
+import APIservice from '../services/APIService';
+import { UserContext } from '../../context/Context'
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import keys from './keys';
+import keys from '../keys';
 import { RNS3 } from 'react-native-aws3';
+import styles from './Post.style'
 
-const Post = ({ navigation }) => {
-  const { allPosts, setAllPosts, idOfUser } = useContext(UserContext)
+const Post = ({ route, navigation }) => {
+  const { idOfUser } = route.params
+  const { allPosts, setAllPosts } = useContext(UserContext)
   const [image, setImage] = useState(null);
-  const [post, setPost] = useState(initialState)
   const initialState = {
     description: '',
     image_url: '',
-    user_id: idOfUser,
+    idOfUser: idOfUser,
     longitude: 0.0,
     latitude: 0.0
   }
+  const [post, setPost] = useState(initialState)
 
   useEffect(() => {
     getLocation();
+    console.log('idofuser', idOfUser)
     askForPermission();
   }, [])
 
@@ -51,7 +53,7 @@ const Post = ({ navigation }) => {
   const saveImageToAWS3 = (image) => {
     const file = {
       uri: image,
-      name: Math.random().toString(36),
+      name: Math.random().toString(36).slice(2),
       type: 'image/png'
     }
     const config = {
@@ -88,8 +90,10 @@ const Post = ({ navigation }) => {
   }
 
   const addPost = async () => {
-    const { description, image_url, user_id, longitude, latitude } = post;
-    const submittedPost = { description, image_url, user_id, longitude, latitude };
+    // console.log('idofuser in add post', idOfUser)
+    const { description, image_url, idOfUser, longitude, latitude } = post;
+    console.log('userid', idOfUser)
+    const submittedPost = { description, image_url, idOfUser, longitude, latitude };
     const res = await APIservice.newPost(submittedPost);
     if (res.error) {
       alert('could not submit');
@@ -97,35 +101,35 @@ const Post = ({ navigation }) => {
     } else {
       setPost(res);
       (post) => { setAllPosts(allPosts.concat(post)) };
+      navigation.navigate('Dashboard')
     }
   }
 
   return (
     <View style={styles.container}  >
-      <Button title='Back' onPress={() => navigation.navigate('Dashboard')} />
-      <Input
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >
+        <Text>Back</Text>
+      </TouchableOpacity> */}
+      <View style={styles.container}>
+      <TextInput
+        style={styles.input}
         placeholder='Describe your product'
-        value={post.description}
-        onChangeText={(description) => setPost({ ...post, description: description })}
+        // value={post.description}
+        name='description'
+        onChangeText={description => setPost({ ...post, description: description })}
       />
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Button title="Pick an image from camera roll" onPress={pickImage} />
+        <TouchableOpacity onPress={pickImage} style={styles.buttons}>
+          <Text style={styles.buttontext}>Select image</Text>
+        </TouchableOpacity>
         {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+        
+        <TouchableOpacity onPress={addPost} style={styles.buttons}>
+          <Text style={styles.buttontext}>Submit post</Text>
+        </TouchableOpacity>
       </View>
-      <Button title='Submit post' onPress={addPost} />
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  buttons: {
-    marginTop: 200
-  },
-})
 
 export default Post;

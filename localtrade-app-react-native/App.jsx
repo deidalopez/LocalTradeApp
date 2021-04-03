@@ -1,13 +1,14 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LandingPage from './Components/LandingPage';
-import Register from './Components/Register';
-import Login from './Components/Login';
-import Feed from './Components/Feed';
-import Dashboard from './Components/Dashboard';
-import Post from './Components/Post';
-import myprofile from './Components/myprofile';
-import { Provider } from './Context/Context'
+import LandingPage from './components/Landing/LandingPage'
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import Feed from './components/Feed/Feed';
+import Dashboard from './components/Dashboard/Dashboard';
+import Post from './components/Post/Post';
+import MyProfile from './components/MyProfile/MyProfile';
+import { Provider } from './context/Context'
 
 const Stack = createStackNavigator();
 const App = () => {
@@ -22,7 +23,7 @@ const App = () => {
           <Stack.Screen name='Feed' component={Feed} />
           <Stack.Screen name='Dashboard' component={Dashboard} />
           <Stack.Screen name='Post' component={Post} />
-          <Stack.Screen name='Profile' component={myprofile} />
+          <Stack.Screen name='Profile' component={MyProfile} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

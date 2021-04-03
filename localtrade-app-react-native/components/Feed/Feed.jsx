@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
-import { Card, Button } from 'react-native-elements';
-import APIservice from './services/APIService';
+import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
+import { Card } from 'react-native-elements';
+import APIservice from '../services/APIService';
 import { getDistance } from 'geolib';
 import * as Location from 'expo-location';
-import { UserContext } from '../Context/Context'
-
+import { UserContext } from '../../context/Context'
+import styles from './Feed.styles'
 const Feed = ({ navigation }) => {
   const { allPosts } = useContext(UserContext)
 
@@ -63,12 +63,10 @@ const Feed = ({ navigation }) => {
   }
 
   const getUserInfo = async (user_id) => {
-    console.log(user_id)
     const res = await APIservice.getUserById(user_id);
     if (res.error) {
       alert('problem getting user info');
     } else {
-      console.log(res)
       const { firstName, id, email } = res;
       return {
         firstName: firstName,
@@ -81,10 +79,7 @@ const Feed = ({ navigation }) => {
     if (res.error) {
       alert('problem getting user info');
     } else {
-      console.log(res)
       const { firstName, id, email } = res;
-      console.log(firstName)
-      console.log(email)
       return {
         firstName: firstName,
         email: email
@@ -105,21 +100,24 @@ const Feed = ({ navigation }) => {
             }}
           />
           <Card.Divider />
-          <Text>{post.description}</Text>
-          <Text>Posted {post.distance} miles away</Text>
-          <Button title='interested'
+          <Text style={styles.description}>{post.description}</Text>
+          <Text style={styles.description}>Posted {post.distance} miles away</Text>
+          {/* <Button title='interested'
             type='outline'
             buttonStyle={{ marginVertical: 10 }}
             onPress={() => navigation.push('Profile', { user_id: post.user_id })}
-          />
+          /> */}
+          <TouchableOpacity onPress={() => navigation.push('Profile', { user_id: post.user_id })}>
+            <Text style={styles.description}>interested</Text>
+          </TouchableOpacity>
         </Card>
       )
     })
   }
   return (
     <View>
-      <Text style={[styles.title]}>Offers near me: </Text>
-      <ScrollView style={{ marginHorizontal: 20, backgroundColor: '#DAE8EF' }} bounces={true}>
+      <Text style={[styles.title]}>Offers near me </Text>
+      <ScrollView style={styles.scrollView} bounces={true}>
         {renderFeed()}
       </ScrollView>
     </View>
@@ -127,21 +125,3 @@ const Feed = ({ navigation }) => {
 }
 
 export default Feed;
-
-const styles = StyleSheet.create({
-  screenContainer: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 16
-  },
-  title: {
-    fontSize: 25,
-    paddingVertical: 15,
-    paddingLeft: 20,
-  },
-  buttonsContainer: {
-    paddingVertical: 10,
-    marginHorizontal: 15,
-    paddingHorizontal: 12
-  }
-})

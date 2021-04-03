@@ -1,19 +1,21 @@
 import { View, Text } from 'react-native'
 import React, { useState, useEffect } from 'react';
 import { Card } from 'react-native-elements';
-import APIservice from './services/APIService';
+import APIservice from '../services/APIService';
 
 
 const myprofile = ({ route }) => {
   const [currentUser, setCurrentUser] = useState({ firstName: '', lastName: '', email: '' })
 
-  const { user_id } = route.params
+  const {idOfUser} = route.params
   useEffect(() => {
-    getUserInfo(user_id)
+    console.log(idOfUser)
+    getUserInfo()
   }, [])
 
-  const getUserInfo = async (user_id) => {
-    const res = await APIservice.getUserById(user_id);
+  const getUserInfo = async () => {
+    const res = await APIservice.getUserById(idOfUser);
+    console.log(idOfUser);
     if (res.error) {
       alert('problem getting user info');
     } else {

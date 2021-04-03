@@ -11,16 +11,16 @@ import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { createPost } from './redux/actions/index'
 import { bindActionCreators } from 'redux';
-import APIservice from '../../services/APIService';
+import APIservice from '../services/APIService';
 import { onUserLogin } from './redux/actions/index';
 
- function Main({navigation}) {
+function Main({ navigation }) {
 
   const [post, setPost] = useState({
-                                                            desc:'',
-                                                            img:'',
-                                                            _id:''
-                                                          })
+    desc: '',
+    img: '',
+    _id: ''
+  })
   const dispatch = useDispatch();
   const submitPost = (post) => dispatch(createPost(post));
 
@@ -31,7 +31,7 @@ import { onUserLogin } from './redux/actions/index';
       <TextInput
         value={post}
         placeholder="Enterpost"
-        onChangeText={(post) => setPost( post )}
+        onChangeText={(post) => setPost(post)}
       />
       <TouchableOpacity
         style={{ marginBottom: 16 }}

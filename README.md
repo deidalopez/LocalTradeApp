@@ -12,9 +12,10 @@ npm install
 ```bash
 npm start 
 ```
-Opens the app in development mode, you can run it in an emulator or on your phone with the Expo app
+This will open the app in your browser in development mode, you can either run it in an emulator like Android Studio, or on your phone with the Expo app using the QR code
 
 ## Tech Stack
+### LocalTrade is built using: 
 - React Native with Expo for the frontend
 - AWS S3 for image storage
 - node.js and express for the backend

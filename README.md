@@ -9,9 +9,21 @@ npm install
 ```
 
 ## To run the app
+### For the client
 ```bash
 npm start 
 ```
+
+### For the server
+Install nodemon ``` npm install -D nodemon```
+Add a script to your package.json 
+```
+"scripts": {
+    "dev": "nodemon index.js"
+    }
+```
+Run server with ```npm run dev```
+
 This will open the app in your browser in development mode, you can either run it in an emulator like Android Studio, or on your phone with the Expo app using the QR code
 
 ## Tech Stack

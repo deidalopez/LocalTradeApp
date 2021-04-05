@@ -10,6 +10,7 @@ npm install
 
 ## To run the app
 ### For the client
+This will open the app in your browser in development mode, you can either run it in an emulator like Android Studio, or on your phone with the Expo app using the QR code
 ```bash
 npm start 
 ```
@@ -24,7 +25,6 @@ Add a script to your package.json
 ```
 Run server with ```npm run dev```
 
-This will open the app in your browser in development mode, you can either run it in an emulator like Android Studio, or on your phone with the Expo app using the QR code
 
 ## Tech Stack
 ### LocalTrade is built using: 

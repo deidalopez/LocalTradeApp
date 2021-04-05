@@ -18,5 +18,5 @@ This will open the app in your browser in development mode, you can either run i
 ### LocalTrade is built using: 
 - React Native with Expo for the frontend
 - AWS S3 for image storage
-- node.js and express for the backend
-- postgreSQL for the database
+- Node.js and Express for the backend
+- PostgreSQL for the database

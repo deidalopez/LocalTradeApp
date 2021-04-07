@@ -1,6 +1,9 @@
 # LocalTrade
 LocalTrade is a community trade app, where users can post perishable items (such as garden-grown vegetables, or excess fruits) they are willing to trade for other local goods.
 
+![Landing Page](https://deidalopez.github.com/LocalTradeApp/local-trade-app-react-native/assets/Landing.png)
+
+
 ## Getting Started
 - Fork this repository and clone it to your local machine
 - To get all the required dependencies by ```npm install ```

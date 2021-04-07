@@ -17,7 +17,8 @@ export default StyleSheet.create({
 
   title: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: 50,
+    marginBottom:30,
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center'
@@ -27,12 +28,13 @@ export default StyleSheet.create({
     // flex: 1,
     // resizeMode: 'cover', 
     width: '100%', 
-    height: '100%'
+    height: '100%',
+    // opacity: 0.75
   },
 
   logo: {
-    width: 200,
-    height: 150
+    width: 250,
+    height: 250
   },
 
   namelogocontainer: {
@@ -64,17 +66,18 @@ export default StyleSheet.create({
 
   buttons: {
     margin: 5,
-    backgroundColor: COLORS.darkblue,
+    backgroundColor: COLORS.secondary,
     borderRadius: 7,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    width: 150
+    width: 130
   },
 
   buttontext: {
     color: 'white',
     fontFamily: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight:'700'
   }
 })

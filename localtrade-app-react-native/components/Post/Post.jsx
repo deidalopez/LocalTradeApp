@@ -8,9 +8,12 @@ import * as Location from 'expo-location';
 import keys from '../keys';
 import { RNS3 } from 'react-native-aws3';
 import styles from './Post.style'
+import { Card } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
+import { COLORS } from '../../globalStyles';
 
-const Post = ({ route, navigation }) => {
-  const { idOfUser } = route.params
+const Post = ({ idOfUser, navigation }) => {
+  // const { idOfUser } = route.params
   const { allPosts, setAllPosts } = useContext(UserContext)
   const [image, setImage] = useState(null);
   const initialState = {
@@ -106,27 +109,33 @@ const Post = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.container}  >
-      {/* <TouchableOpacity onPress={() => navigation.navigate('Dashboard')} >
-        <Text>Back</Text>
-      </TouchableOpacity> */}
-      <View style={styles.container}>
-      <TextInput
+    <View style={styles.container} >
+    {/* <Text style={styles.title}> Make a new post </Text> */}
+    <Card >
+        {image ? <Image source={{ uri: image }} style={{ width: 300, height: 300 }} /> :
+        <View style={styles.imgPlaceholder}>
+          <TouchableOpacity onPress={pickImage}>
+              
+              <Text style={styles.imgPlaceholderText}>  Select an image  <AntDesign name="upload" size={14} color={COLORS.gray} /></Text>
+          </TouchableOpacity>
+        </View>
+      }
+        {/* {image && <Image source={{ uri: image }} style={{ width: 300, height: 300 }} />} */}
+    <Card.Divider />
+     <TextInput
         style={styles.input}
         placeholder='Describe your product'
         // value={post.description}
         name='description'
         onChangeText={description => setPost({ ...post, description: description })}
       />
-        <TouchableOpacity onPress={pickImage} style={styles.buttons}>
+    </Card>
+        {/* <TouchableOpacity onPress={pickImage} style={styles.buttons}>
           <Text style={styles.buttontext}>Select image</Text>
-        </TouchableOpacity>
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-        
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={addPost} style={styles.buttons}>
           <Text style={styles.buttontext}>Submit post</Text>
         </TouchableOpacity>
-      </View>
     </View>
   )
 }

@@ -9,6 +9,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
   inputContainer: {
     marginTop: 10,
     alignItems: 'center',
@@ -44,7 +45,7 @@ export default StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
-    backgroundColor: '#DAE8EF'
+    backgroundColor: '#fff'
   },
   input: {
     height: 40,
@@ -58,7 +59,23 @@ export default StyleSheet.create({
   },
   description: {
     fontFamily: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
+    color: '#000'
   },
+  interested: {
+    fontFamily: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
+    color: '#fff'
+  },
+
+  interestedButton: {
+    margin: 5, 
+    backgroundColor: COLORS.gray,
+    borderRadius: 6, 
+    height: 30, 
+    justifyContent: 'center',
+    alignItems: 'center', 
+    width: 80
+  },
+
   buttons: {
     margin: 5,
     backgroundColor: COLORS.secondary,

@@ -4,8 +4,7 @@ import { COLORS } from '../../globalStyles';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 10,
-    backgroundColor: '#fff',
+    backgroundColor: COLORS.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -22,13 +21,19 @@ export default StyleSheet.create({
   },
 
   title: {
-    color: 'black',
+    color: COLORS.green,
     fontSize: 30,
     fontWeight: 'bold',
-    // flex: 1,
+    marginBottom:20,
     alignItems: 'center',
     justifyContent: 'center'
   },
+
+  logo: {
+    width: 500,
+    height: 120
+  },
+
   input: {
     height: 40,
     width: 270,
@@ -37,12 +42,13 @@ export default StyleSheet.create({
     paddingLeft: 10,
     borderWidth: 2,
     borderRadius: 7,
-    borderColor: 'grey'
+    backgroundColor: '#fff',
+    borderColor: COLORS.gray
   },
 
   buttons: {
     margin: 5,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.redbrown,
     borderRadius: 7,
     height: 40,
     justifyContent: 'center',

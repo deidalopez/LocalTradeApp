@@ -5,10 +5,12 @@ import APIservice from '../services/APIService';
 import { getDistance } from 'geolib';
 import * as Location from 'expo-location';
 import { UserContext } from '../../context/Context'
+import { useNavigation } from '@react-navigation/core';
 import styles from './Feed.styles'
-const Feed = ({ navigation }) => {
-  const { allPosts } = useContext(UserContext)
 
+const Feed = () => {
+  const { allPosts } = useContext(UserContext)
+  const navigation = useNavigation()
   const [location, setLocation] = useState({
     latitude: 0,
     longitude: 0
@@ -94,7 +96,7 @@ const Feed = ({ navigation }) => {
         <Card key={post.post_id}>
           {/* <Card.Title> {post.image_url}  </Card.Title> */}
           <Image
-            style={{ width: 250, height: 250, margin: 30 }}
+            style={{ width: 300, height: 300 }}
             source={{
               uri: `https://localtrade.s3-us-west-1.amazonaws.com/${post.image_url}`
             }}
@@ -107,16 +109,16 @@ const Feed = ({ navigation }) => {
             buttonStyle={{ marginVertical: 10 }}
             onPress={() => navigation.push('Profile', { user_id: post.user_id })}
           /> */}
-          <TouchableOpacity onPress={() => navigation.push('Profile', { user_id: post.user_id })}>
-            <Text style={styles.description}>interested</Text>
+          <TouchableOpacity style={styles.interestedButton} onPress={() => navigation.navigate('OtherProfile', { idOfUser: post.user_id })}>
+            <Text style={styles.interested}>Interested</Text>
           </TouchableOpacity>
         </Card>
       )
     })
   }
   return (
-    <View>
-      <Text style={[styles.title]}>Offers near me </Text>
+    <View style={styles.container}>
+      {/* <Text style={[styles.title]}>Offers near me </Text> */}
       <ScrollView style={styles.scrollView} bounces={true}>
         {renderFeed()}
       </ScrollView>

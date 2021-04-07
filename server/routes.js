@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const controller = require('./controllers/');
-const authorizeUser = require('./auth/auth');
+const authorizeUser = require('./middleware/auth');
+const { body } = require('express-validator');
 
 //users
 router.get('/get', controller.grabAll);
 
-router.post('/register', controller.createUser);
+router.post('/register', body('password').isLength({min: 6}), controller.createUser);
 
 router.post('/login', controller.login);
 

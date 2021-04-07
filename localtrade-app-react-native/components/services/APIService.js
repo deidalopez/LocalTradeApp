@@ -1,5 +1,5 @@
-const BASE_URL = 'http://192.168.0.181:3001';
-
+// const BASE_URL = 'http://192.168.0.181:3001';
+const BASE_URL = process.env.EXPO_API_URL;
 const APIservice = {};
 
 APIservice.register = (user) => {

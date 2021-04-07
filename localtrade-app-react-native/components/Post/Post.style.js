@@ -33,8 +33,8 @@ export default StyleSheet.create({
     paddingHorizontal: 12
   },
   title: {
-    color: 'black',
-    fontSize: 30,
+    color: COLORS.green,
+    fontSize: 25,
     fontWeight: 'bold',
     alignItems: 'center',
     justifyContent: 'center'
@@ -44,19 +44,30 @@ export default StyleSheet.create({
     backgroundColor: '#DAE8EF'
   },
   input: {
-    height: 40,
-    width: 270,
+    height: 50,
+    width: 280,
     margin: 5,
-    fontSize: 18,
+    fontSize: 16,
     paddingLeft: 10,
     borderWidth: 2,
     borderRadius: 7,
     fontFamily: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
-    borderColor: COLORS.darkblue
+    borderColor: COLORS.lightGray
+  },
+
+  imgPlaceholder: {
+    height: 300, 
+    backgroundColor: COLORS.lightGray,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imgPlaceholderText: {
+    color: COLORS.gray
   },
 
   buttons: {
     margin: 5,
+    marginTop: 20,
     backgroundColor: COLORS.secondary,
     borderRadius: 7,
     height: 40,

@@ -1,13 +1,20 @@
-import { View, Text } from 'react-native'
-import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../context/Context';
 import { Card } from 'react-native-elements';
 import APIservice from '../services/APIService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './MyProfile.styles';
 
-
-const myprofile = ({ route }) => {
+const MyProfile = ({ route }) => {
   const [currentUser, setCurrentUser] = useState({ firstName: '', lastName: '', email: '' })
+  const { setIsAuth, setUser, setIdOfUser, idOfUser } = useContext(UserContext)
+  const initialState = {
+    email: '',
+    password: '',
+  };
 
-  const {idOfUser} = route.params
+  // const {idOfUser} = route.params
   useEffect(() => {
     console.log(idOfUser)
     getUserInfo()
@@ -30,21 +37,35 @@ const myprofile = ({ route }) => {
   }
   const renderPage = () => {
     return (
-      <Card key={currentUser.email}>
-        <Card.Title>User Info</Card.Title>
+      <Card key={currentUser.email} wrapperStyle={styles.infoCard}>
+        <Card.Title style={styles.cardTitle}>My Info</Card.Title>
         <Card.Divider />
-        <Text>Name: {currentUser.firstName} {currentUser.lastName}</Text>
+        <Text style={styles.cardText}>Name: {currentUser.firstName} {currentUser.lastName}</Text>
         <Card.Divider />
-        <Text>Email: {currentUser.email}</Text>
+        <Text style={styles.cardText}>Email: {currentUser.email}</Text>
       </Card>
     )
   }
 
+  const signOut = async () => {
+    setIsAuth(false);
+    try {
+      await AsyncStorage.removeItem('accessToken');
+    } catch (error) {
+      console.log(error)
+    }
+    setUser(initialState);
+    setIdOfUser(null);
+  }
+
   return (
-    <View>
+    <View style={styles.container}>
       {renderPage()}
+      <TouchableOpacity onPress={() => signOut()} style={styles.buttons}>
+        <Text style={styles.buttontext}>Sign out</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
-export default myprofile
+export default MyProfile;

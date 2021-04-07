@@ -6,15 +6,11 @@ const sequelize = require('./database');
 const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
-
+const CORS_ORIGIN = process.env.ORIGIN
 const corsConfig = {
-  origin: 'http://localhost:19006',
+  origin: CORS_ORIGIN,
   credentials: true,
 };
-
-// sequelize.sync();
-
-
 
 app.use(cors(corsConfig));
 app.use(express.json());

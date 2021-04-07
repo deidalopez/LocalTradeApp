@@ -2,7 +2,7 @@ const { Users, Posts } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY;
-const validator = require('validator');
+const { validationResult } = require('express-validator');
 
 const grabAll = async (req, res) => {
   try {
@@ -18,9 +18,14 @@ const createUser = async (req, res) => {
   const { email, password } = req.body;
   let alreadyExistingUser = await Users.findOne({ where: { email: email } });
   if (alreadyExistingUser) return res.status(500).send({ error: "already exists" });
+  const errors = validationResult(req);
+  if(!errors.isEmpty()){
+    return res.status(400).json({errors: errors.array()});
+  }
+  
   // if (!validator.isStrongPassword(password, {
-  //   minLength: 8, minLowercase: 1, minUppercase: 1, minNumber: 1,
-  // })) return res.status(400).json({ error: "Weak password, should contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number" })
+  //   minLength: 6, minLowercase: 1, minUppercase: 1, minNumber: 1,
+  // })) return res.status(400).json({ error: "Weak password, should contain at least 6 characters, 1 uppercase, 1 lowercase, and 1 number" })
   try {
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = Users.build({

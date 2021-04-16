@@ -58,9 +58,16 @@ const MyProfile = ({ route }) => {
     setIdOfUser(null);
   }
 
+  // const editUser = async () => {
+    
+  // }
+
   return (
     <View style={styles.container}>
       {renderPage()}
+      <TouchableOpacity onPress={() => signOut()} style={styles.buttons}>
+        <Text style={styles.buttontext}>Edit</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => signOut()} style={styles.buttons}>
         <Text style={styles.buttontext}>Sign out</Text>
       </TouchableOpacity>

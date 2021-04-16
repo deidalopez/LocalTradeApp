@@ -35,9 +35,10 @@ export default StyleSheet.create({
     paddingHorizontal: 12
   },
   scrollView: {
-    marginHorizontal: 20, 
-    backgroundColor: '#DAE8EF'
+    marginHorizontal: 20,
+    backgroundColor: '#fff'
   },
+  
   input: {
     height: 40,
     width: 270,

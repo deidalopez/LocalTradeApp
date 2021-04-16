@@ -21,24 +21,27 @@ const Login = ({ navigation }) => {
     password: '',
   });
 
-  const storeInStorage = async (value) => {
-    try {
-      await AsyncStorage.setItem('@storage_Key', value)
-    } catch (err) {
-      console.log({ "error": err })
-    }
-  }
+  // const storeInStorage = async (value) => {
+  //   try {
+  //     await AsyncStorage.setItem('@storage_Key', value)
+  //   } catch (err) {
+  //     console.log({ "error": err })
+  //   }
+  // }
 
   const onLogIn = async () => {
+    console.log('onlogin')
     const { email, password } = loginForm;
     setUser(loginForm);
     const input = { email, password };
+    console.log(input.email)
     const res = await APIservice.login(input);
     if (res.error) {
       alert('wrong email or password');
       setUser(initialState);
       setIsAuth(false);
     } else {
+      console.log('loggedin')
       const { accessToken } = res;
       const stringedToken = JSON.stringify(accessToken)
       await AsyncStorage.setItem('accessToken', stringedToken)

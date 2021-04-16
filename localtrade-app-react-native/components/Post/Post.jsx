@@ -1,21 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Image, Platform, TouchableOpacity, Text, TextInput } from 'react-native';
-import { Input, Button } from 'react-native-elements';
 import APIservice from '../services/APIService';
-import { UserContext } from '../../context/Context'
+import { UserContext } from '../../context/Context';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import keys from '../keys';
-import { RNS3 } from 'react-native-aws3';
-import styles from './Post.style'
+import styles from './Post.style';
 import { Card } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';
 import { COLORS } from '../../globalStyles';
+const ACCESS_KEY = process.env.EXPO_AWS_ACCESS_KEY;
+const SECRET_KEY = process.env.EXPO_AWS_SECRET_KEY;
+import { RNS3 } from 'react-native-aws3';
 
-const Post = ({ idOfUser, navigation }) => {
-  // const { idOfUser } = route.params
-  const { allPosts, setAllPosts } = useContext(UserContext)
+const Post = ({ navigation }) => {
+  const { allPosts, setAllPosts, idOfUser } = useContext(UserContext)
   const [image, setImage] = useState(null);
+
   const initialState = {
     description: '',
     image_url: '',
@@ -27,7 +28,7 @@ const Post = ({ idOfUser, navigation }) => {
 
   useEffect(() => {
     getLocation();
-    console.log('idofuser', idOfUser)
+    setImage(null);
     askForPermission();
   }, [])
 
@@ -47,13 +48,14 @@ const Post = ({ idOfUser, navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-    if (!result.cancelled) {
+    if (result) {
       setImage(result.uri);
-      saveImageToAWS3(result.uri);
+
     }
   };
 
   const saveImageToAWS3 = (image) => {
+    console.log('inside saveImageToAWS3')
     const file = {
       uri: image,
       name: Math.random().toString(36).slice(2),
@@ -63,8 +65,8 @@ const Post = ({ idOfUser, navigation }) => {
       keyPrefix: '',
       bucket: 'localtrade',
       region: 'us-west-1',
-      accessKey: keys.AccessKey,
-      secretKey: keys.SecretKey,
+      accessKey: ACCESS_KEY,
+      secretKey: SECRET_KEY,
       successActionStatus: 201,
     }
     RNS3.put(file, config).then(res => {
@@ -93,10 +95,10 @@ const Post = ({ idOfUser, navigation }) => {
   }
 
   const addPost = async () => {
-    // console.log('idofuser in add post', idOfUser)
-    const { description, image_url, idOfUser, longitude, latitude } = post;
-    console.log('userid', idOfUser)
-    const submittedPost = { description, image_url, idOfUser, longitude, latitude };
+    saveImageToAWS3(image);
+    const { description, image_url, longitude, latitude } = post;
+    const sentUserId = initialState.idOfUser;
+    const submittedPost = { description, image_url, sentUserId, longitude, latitude };
     const res = await APIservice.newPost(submittedPost);
     if (res.error) {
       alert('could not submit');
@@ -110,35 +112,27 @@ const Post = ({ idOfUser, navigation }) => {
 
   return (
     <View style={styles.container} >
-    {/* <Text style={styles.title}> Make a new post </Text> */}
-    <Card >
+      <Card >
         {image ? <Image source={{ uri: image }} style={{ width: 300, height: 300 }} /> :
-        <View style={styles.imgPlaceholder}>
-          <TouchableOpacity onPress={pickImage}>
-              
+          <View style={styles.imgPlaceholder}>
+            <TouchableOpacity onPress={pickImage}>
               <Text style={styles.imgPlaceholderText}>  Select an image  <AntDesign name="upload" size={14} color={COLORS.gray} /></Text>
-          </TouchableOpacity>
-        </View>
-      }
-        {/* {image && <Image source={{ uri: image }} style={{ width: 300, height: 300 }} />} */}
-    <Card.Divider />
-     <TextInput
-        style={styles.input}
-        placeholder='Describe your product'
-        // value={post.description}
-        name='description'
-        onChangeText={description => setPost({ ...post, description: description })}
-      />
-    </Card>
-        {/* <TouchableOpacity onPress={pickImage} style={styles.buttons}>
-          <Text style={styles.buttontext}>Select image</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity onPress={addPost} style={styles.buttons}>
-          <Text style={styles.buttontext}>Submit post</Text>
-        </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
+        }
+        <Card.Divider />
+        <TextInput
+          style={styles.input}
+          placeholder='Describe your product'
+          name='description'
+          onChangeText={description => setPost({ ...post, description: description })}
+        />
+      </Card>
+      <TouchableOpacity onPress={addPost} style={styles.buttons}>
+        <Text style={styles.buttontext}>Submit post</Text>
+      </TouchableOpacity>
     </View>
   )
 }
-
 
 export default Post;

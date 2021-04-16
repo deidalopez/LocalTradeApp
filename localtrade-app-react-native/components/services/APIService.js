@@ -1,5 +1,5 @@
-// const BASE_URL = 'http://192.168.0.181:3001';
-const BASE_URL = process.env.EXPO_API_URL;
+const BASE_URL = 'http://192.168.0.181:3001';
+// const BASE_URL = process.env.EXPO_API_URL;
 const APIservice = {};
 
 APIservice.register = (user) => {
@@ -79,6 +79,18 @@ APIservice.newPost = (post) => {
     .catch((err) => console.log(err))
 }
 
+// getpostsbyId
+APIservice.getPostsByUserId = () => {
+  const init = {
+    method: 'GET',
+    credentials: 'include',
+    mode: 'cors',
+    headers: { 'Content-type': 'application/json' },
+  };
+  return fetch(`${BASE_URL}/postsByUserId`, init)
+    .then((res) => res.json())
+    .catch((err) => console.log(err))
+}
 // getALLposts
 APIservice.getAllPosts = () => {
   const init = {

@@ -22,6 +22,8 @@ const Register = ({ navigation }) => {
     password: '',
     location: null
   });
+
+
   const onSignUp = async () => {
     const { firstName, lastName, email, password } = registerForm;
     console.log(firstName)
@@ -29,6 +31,7 @@ const Register = ({ navigation }) => {
     setUser(registerForm);
     const input = { firstName, lastName, email, password };
     const res = await APIservice.register(input);
+    console.log(res)
     if (res.error) {
       alert(`${res.message}`);
       setUser(initialState)

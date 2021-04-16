@@ -45,7 +45,9 @@ const createUser = async (req, res) => {
 
 //login
 const login = async (req, res) => {
+  console.log('HERE')
   const { email, password } = req.body;
+  console.log(email)
   try {
     const userInDB = await Users.findOne({ where: { email: email } });
     if (!userInDB) return res.status(404).json({ error: "400", message: "No user with this email" })
@@ -55,7 +57,7 @@ const login = async (req, res) => {
     const accessToken = jwt.sign({ id: userInDB.id }, SECRET_KEY);
     res.status(200).json({ accessToken })
   } catch (error) {
-    res.status(400).json({ error: '500', message: 'error' });
+    res.status(400).json({ error: '500', message: error });
   }
 }
 
@@ -94,6 +96,19 @@ const getUserById = async (req, res) => {
   }
 }
 
+const editUser = async (req, res) => {
+  const {id, email} = req.body;
+  try {
+    let user = await Users.findByPk(id);
+    if (!user) res.status(400).json({error: 'User not found'});
+    user.email = email;
+    await user.save();
+    res.status(200).return(user);
+  } catch (error) {
+    res.status(500).json({ error: '500', message: 'Couldnt find user with that id' });
+  }
+}
+
 //get post
 const getPosts = async (req, res) => {
   try {
@@ -117,11 +132,11 @@ const getPostsByUserId = async (req, res) => {
 
 //make post
 const newPost = async (req, res) => {
-  const { description, image_url, idOfUser, longitude, latitude } = req.body;
+  const { description, image_url, sentUserId, longitude, latitude } = req.body;
   console.log(description)
-  console.log(idOfUser)
+  console.log(sentUserId)
   if (description.length < 5) return res.json("please enter a longer description")
-  const user = await Users.findOne({ where: { id: idOfUser } })
+  const user = await Users.findOne({ where: { id: sentUserId } })
 
   if (!user) res.status(400).json({ error: "user with this id not found" })
   try {
@@ -139,4 +154,4 @@ const newPost = async (req, res) => {
   }
 }
  
-module.exports = { grabAll, createUser, newPost, login, getUser, getUserByEmail, getUserById, getPosts, getPostsByUserId }
+module.exports = { grabAll, createUser, newPost, login, getUser, getUserByEmail, getUserById, editUser, getPosts, getPostsByUserId }

@@ -1,14 +1,19 @@
 const express = require('express');
+require('dotenv').config();
 const cors = require('cors');
 const app = express();
-require('dotenv').config();
 const sequelize = require('./database');
 const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 const CORS_ORIGIN = process.env.ORIGIN
+// const corsConfig = {
+//   origin: CORS_ORIGIN,
+//   credentials: true,
+// };
 const corsConfig = {
-  origin: CORS_ORIGIN,
+  // origin: 'http://192.168.0.181:19000',
+  origin: 'http://localhost:19006',
   credentials: true,
 };
 

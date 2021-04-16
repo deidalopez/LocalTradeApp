@@ -4,6 +4,8 @@ const authorizeUser = require('./middleware/auth');
 const { body } = require('express-validator');
 
 //users
+
+
 router.get('/get', controller.grabAll);
 
 router.post('/register', body('password').isLength({min: 6}), controller.createUser);
@@ -15,6 +17,8 @@ router.get('/getUser', authorizeUser, controller.getUser);
 router.get('/getByEmail/:userEmail', controller.getUserByEmail);
 
 router.get('/getById/:userId', controller.getUserById);
+
+router.put('/editUser', controller.editUser);
 
 
 // posts

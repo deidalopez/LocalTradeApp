@@ -25,7 +25,7 @@ export default StyleSheet.create({
 
   buttons: {
     margin: 5,
-    marginTop:100,
+    marginTop:10,
     backgroundColor: COLORS.secondary,
     borderRadius: 7,
     height: 40,
@@ -33,6 +33,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 150
   },
+ 
 
   buttontext: {
     color: 'white',

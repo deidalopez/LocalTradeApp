@@ -43,17 +43,3 @@ export default function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  logo: {
-    width: 200,
-    height: 200
-  }
-});

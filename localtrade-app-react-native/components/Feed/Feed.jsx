@@ -8,6 +8,8 @@ import { UserContext } from '../../context/Context'
 import { useNavigation } from '@react-navigation/core';
 import styles from './Feed.styles'
 
+// todo replace scrollview with flatlist
+
 const Feed = () => {
   const { allPosts } = useContext(UserContext)
   const navigation = useNavigation()
@@ -76,25 +78,11 @@ const Feed = () => {
       }
     };
   }
-  const interested = async (user_id) => {
-    const res = await APIservice.getUserById(user_id);
-    if (res.error) {
-      alert('problem getting user info');
-    } else {
-      const { firstName, id, email } = res;
-      return {
-        firstName: firstName,
-        email: email
-      }
-    };
-  }
-
 
   const renderFeed = () => {
     return sortedPosts.map((post) => {
       return (
         <Card key={post.post_id}>
-          {/* <Card.Title> {post.image_url}  </Card.Title> */}
           <Image
             style={{ width: 300, height: 300 }}
             source={{
@@ -104,11 +92,6 @@ const Feed = () => {
           <Card.Divider />
           <Text style={styles.description}>{post.description}</Text>
           <Text style={styles.description}>Posted {post.distance} miles away</Text>
-          {/* <Button title='interested'
-            type='outline'
-            buttonStyle={{ marginVertical: 10 }}
-            onPress={() => navigation.push('Profile', { user_id: post.user_id })}
-          /> */}
           <TouchableOpacity style={styles.interestedButton} onPress={() => navigation.navigate('OtherProfile', { idOfUser: post.user_id })}>
             <Text style={styles.interested}>Interested</Text>
           </TouchableOpacity>
@@ -118,7 +101,6 @@ const Feed = () => {
   }
   return (
     <View style={styles.container}>
-      {/* <Text style={[styles.title]}>Offers near me </Text> */}
       <ScrollView style={styles.scrollView} bounces={true}>
         {renderFeed()}
       </ScrollView>

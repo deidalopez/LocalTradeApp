@@ -25,11 +25,8 @@ export default StyleSheet.create({
   },
 
   image: {
-    // flex: 1,
-    // resizeMode: 'cover', 
     width: '100%', 
     height: '100%',
-    // opacity: 0.75
   },
 
   logo: {

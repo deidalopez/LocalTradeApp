@@ -8,15 +8,9 @@ import styles from './Dashboard.styles'
 import { Card } from 'react-native-elements/dist/card/Card';
 
 const Dashboard = ({ navigation }) => {
-  const initialState = {
-    email: '',
-    password: '',
-  };
-
-  const { user, setUser, setIdOfUser, idOfUser, isAuth, setIsAuth } = useContext(UserContext)
+  const { user, setIdOfUser, isAuth } = useContext(UserContext)
   const [name, setName] = useState('');
   const [accessToken, setAccessToken] = useState(''); 
-  // const [posts, setPosts] = useState([])
   const posts = []
   
   useEffect(() => {
@@ -33,6 +27,7 @@ const Dashboard = ({ navigation }) => {
       console.log({err: 'error getting access token'});
     }
   }
+
   const getInfo = async (email) => {
     const res = await APIservice.getUserByEmail(email);
     if (res.error) {
@@ -52,7 +47,6 @@ const Dashboard = ({ navigation }) => {
       res.forEach(post => {
         posts.push(post);
       })
-      console.log(posts)
     }
   }
 
@@ -67,15 +61,12 @@ const Dashboard = ({ navigation }) => {
             }}
           >
           <Card.Divider />
-            
           <Text style = {styles.description}>{post.description}</Text>
-          {/* <Text style = {styles.description}>{post.description}</Text> */}
           </Image>
         </Card>
       )
     })
   }
-
 
   if (isAuth) {
     return (
@@ -85,18 +76,6 @@ const Dashboard = ({ navigation }) => {
          <ScrollView style={styles.scrollView} bounces = {true}>
           {renderPosts()}
          </ScrollView>
-        {/*<TouchableOpacity onPress={() => navigation.push('Feed')} style={styles.buttons} navigation={navigation}>
-          <Text style={styles.buttontext}>See local offers</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.push('Post', { idOfUser: idOfUser })} style={styles.buttons}>
-          <Text style={styles.buttontext}>New post</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.push('MyProfile', { idOfUser: idOfUser })} style={styles.buttons}>
-          <Text style={styles.buttontext}>My profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => signOut()} style={styles.buttons}>
-          <Text style={styles.buttontext}>Sign out</Text>
-        </TouchableOpacity> */}
       </View>
     );
   } else {

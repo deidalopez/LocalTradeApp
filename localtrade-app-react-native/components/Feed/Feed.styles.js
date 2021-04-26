@@ -38,7 +38,6 @@ export default StyleSheet.create({
     color: 'black',
     fontSize: 30,
     marginBottom:10,
-    // fontWeight: '',
     fontFamily: Platform.OS === 'ios' ? 'Avenir Next' : 'Roboto',
     alignSelf: 'center',
     justifyContent: 'center'

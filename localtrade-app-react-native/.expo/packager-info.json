@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19000,
-  "webpackServerPort": 19006,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "webpackServerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": "https://et-ig2.anonymous.localtrade-app-react-native.exp.direct",
-  "packagerNgrokUrl": "https://packager.et-ig2.anonymous.localtrade-app-react-native.exp.direct",
-  "ngrokPid": 28964
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }

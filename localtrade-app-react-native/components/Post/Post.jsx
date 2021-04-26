@@ -4,7 +4,7 @@ import APIservice from '../services/APIService';
 import { UserContext } from '../../context/Context';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
-import keys from '../keys';
+// import keys from '../keys';
 import styles from './Post.style';
 import { Card } from 'react-native-elements';
 import { AntDesign } from '@expo/vector-icons';

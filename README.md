@@ -14,19 +14,27 @@ LocalTrade is a community trade app, where users can post perishable items (such
 
 ## Getting Started
 - Fork this repository and clone it to your local machine
-- To get all the required dependencies by ```npm install ```
-```bash
-npm install 
+
 ```
 
 ## To run the app
 ### For the client
+
+``` cd localtrade-app-react-native```
+
+To get all the required dependencies by ```npm install ```
+```bash
+npm install 
 This will open the app in your browser in development mode, you can either run it in an emulator like Android Studio, or on your phone with the Expo app using the QR code
 ```bash
 npm start 
 ```
 
 ### For the server
+Open a new terminal
+
+``` cd server```
+
 Install nodemon ``` npm install -D nodemon```
 Add a script to your package.json 
 ```
